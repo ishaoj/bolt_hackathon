@@ -1,0 +1,306 @@
+/* Theme card styling */
+.theme-card {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.theme-card:hover {
+  border-color: rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Theme cube styling */
+.theme-cube {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+  margin: 0 auto;
+}
+
+.theme-cube:hover {
+  transform: rotateY(180deg);
+}
+
+/* Cube faces */
+.cube-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.cube-face.front {
+  transform: translateZ(100px);
+}
+
+.cube-face.back {
+  transform: translateZ(-100px) rotateY(180deg);
+}
+
+.cube-face.right {
+  transform: translateX(100px) rotateY(90deg);
+}
+
+.cube-face.left {
+  transform: translateX(-100px) rotateY(-90deg);
+}
+
+.cube-face.top {
+  transform: translateY(-100px) rotateX(90deg);
+}
+
+.cube-face.bottom {
+  transform: translateY(100px) rotateX(-90deg);
+}
+
+/* Theme content */
+.theme-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.theme-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 10px currentColor;
+}
+
+.theme-description {
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  line-height: 1.5;
+}
+
+/* Glow effect */
+.theme-glow {
+  position: absolute;
+  inset: -10px;
+  border-radius: 10px;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Background effects */
+.cyber-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cyber-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.2;
+  animation: gridPulse 2s ease-in-out infinite;
+}
+
+.cyber-particles {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+/* Scanline effect */
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 255, 255, 0.1) 51%
+  );
+  background-size: 100% 4px;
+  animation: scan 2s linear infinite;
+  pointer-events: none;
+}
+
+/* Neon text effect */
+.neon-text {
+  color: #fff;
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #00ffff,
+    0 0 30px #00ffff,
+    0 0 40px #00ffff;
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+/* Theme card list items */
+.theme-card ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.theme-card ul li:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+.theme-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  background: currentColor;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.theme-card ul li:hover::before {
+  background: #00ffff;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+/* Animations */
+@keyframes gridPulse {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #00ffff,
+      0 0 30px #00ffff,
+      0 0 40px #00ffff;
+  }
+  50% {
+    text-shadow: 
+      0 0 2.5px #fff,
+      0 0 5px #fff,
+      0 0 10px #00ffff,
+      0 0 15px #00ffff,
+      0 0 20px #00ffff;
+  }
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    opacity: 0.7;
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    opacity: 0.5;
+  }
+  60% {
+    transform: translate(2px, 2px);
+    opacity: 0.7;
+  }
+  80% {
+    transform: translate(2px, -2px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 0.5;
+  }
+}
+
+.animate-glitch {
+  animation: glitch 0.3s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .theme-card {
+    margin: 0 1rem;
+  }
+
+  .theme-cube {
+    width: 150px;
+    height: 150px;
+  }
+
+  .cube-face.front {
+    transform: translateZ(75px);
+  }
+
+  .cube-face.back {
+    transform: translateZ(-75px) rotateY(180deg);
+  }
+
+  .cube-face.right {
+    transform: translateX(75px) rotateY(90deg);
+  }
+
+  .cube-face.left {
+    transform: translateX(-75px) rotateY(-90deg);
+  }
+
+  .cube-face.top {
+    transform: translateY(-75px) rotateX(90deg);
+  }
+
+  .cube-face.bottom {
+    transform: translateY(75px) rotateX(-90deg);
+  }
+
+  .theme-icon {
+    font-size: 2rem;
+  }
+
+  .theme-title {
+    font-size: 1.25rem;
+  }
+
+  .theme-description {
+    font-size: 0.875rem;
+  }
+} 

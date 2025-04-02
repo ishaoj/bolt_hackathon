@@ -1,0 +1,313 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 #ff0000, -0.03em -0.04em 0 #00fffc,
+                 0.025em 0.04em 0 #fc00ff;
+  }
+  15% {
+    text-shadow: 0.05em 0 0 #ff0000, -0.03em -0.04em 0 #00fffc,
+                 0.025em 0.04em 0 #fc00ff;
+  }
+  16% {
+    text-shadow: -0.05em -0.025em 0 #ff0000, 0.025em 0.035em 0 #00fffc,
+                 -0.05em -0.05em 0 #fc00ff;
+  }
+  49% {
+    text-shadow: -0.05em -0.025em 0 #ff0000, 0.025em 0.035em 0 #00fffc,
+                 -0.05em -0.05em 0 #fc00ff;
+  }
+  50% {
+    text-shadow: 0.05em 0.035em 0 #ff0000, 0.03em 0 0 #00fffc,
+                 0 -0.04em 0 #fc00ff;
+  }
+  99% {
+    text-shadow: 0.05em 0.035em 0 #ff0000, 0.03em 0 0 #00fffc,
+                 0 -0.04em 0 #fc00ff;
+  }
+  100% {
+    text-shadow: -0.05em 0 0 #ff0000, -0.025em -0.04em 0 #00fffc,
+                 -0.04em -0.025em 0 #fc00ff;
+  }
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.99;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes shuriken-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white;
+    background-image: 
+      linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%),
+      url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .neon-text {
+    @apply font-bold;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+    animation: glitch 2s infinite;
+  }
+
+  .neon-button {
+    @apply relative px-8 py-4 text-lg font-bold uppercase tracking-wider 
+           border-2 border-red-500 rounded-md transition-all duration-300
+           hover:bg-red-500/10 hover:scale-105;
+    text-shadow: 0 0 10px #ff0000;
+    box-shadow: 0 0 10px #ff0000, inset 0 0 10px #ff0000;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md bg-black/30 border border-red-500/10 rounded-lg
+           shadow-[0_0_15px_rgba(255,0,0,0.3)];
+  }
+
+  .terminal-text {
+    @apply font-mono text-red-400;
+  }
+
+  .shuriken {
+    @apply absolute w-4 h-4 pointer-events-none;
+    animation: shuriken-spin 1s linear infinite;
+  }
+}
+
+/* Ninja Effect Transitions */
+.ninja-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.ninja-transition.active {
+  opacity: 1;
+}
+
+.ninja-transition::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 127, 0.2));
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transform-origin: center;
+  transform: scaleY(0);
+  transition: transform 0.5s ease;
+}
+
+.ninja-transition.active::before {
+  transform: scaleY(1);
+}
+
+/* Ninja Slash Effect */
+.ninja-slash {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ninja-slash.active {
+  opacity: 1;
+}
+
+.ninja-slash::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(0, 255, 255, 0.8), rgba(255, 0, 127, 0.8));
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.ninja-slash.active::before {
+  transform: scaleX(1);
+}
+
+/* Ninja Movement Effect */
+.ninja-movement {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ninja-movement.active {
+  opacity: 1;
+}
+
+.ninja-movement::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, rgba(255,0,127,0.1) 100%);
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.ninja-movement.active::before {
+  transform: scale(1);
+}
+
+/* Cursor Glow Effect */
+.cursor-glow {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.8), rgba(255, 0, 127, 0.8));
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  filter: blur(8px);
+  opacity: 0.5;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
+}
+
+.cursor-glow.active {
+  width: 100px;
+  height: 100px;
+  opacity: 0.3;
+}
+
+/* Interactive Element Glow */
+a, button, [role="button"] {
+  position: relative;
+  overflow: hidden;
+}
+
+a::after, button::after, [role="button"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 127, 0.2));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  filter: blur(5px);
+}
+
+a:hover::after, button:hover::after, [role="button"]:hover::after {
+  opacity: 0.5;
+}
+
+/* Ninja Scroll Effect */
+.ninja-scroll {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(0, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 9996;
+  backdrop-filter: blur(5px);
+}
+
+.ninja-scroll.visible {
+  opacity: 1;
+}
+
+.ninja-scroll::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid rgba(0, 255, 255, 0.8);
+  border-right: 2px solid rgba(0, 255, 255, 0.8);
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.ninja-scroll:hover {
+  background: rgba(0, 255, 255, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+/* Ninja Loading Effect */
+.ninja-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  backdrop-filter: blur(5px);
+}
+
+.ninja-loading.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ninja-loading::before {
+  content: '';
+  width: 50px;
+  height: 50px;
+  border: 3px solid transparent;
+  border-top-color: rgba(0, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: ninja-spin 1s linear infinite;
+}
+
+@keyframes ninja-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
